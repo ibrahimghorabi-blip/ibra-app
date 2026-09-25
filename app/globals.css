@@ -1,6 +1,19 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #EDEFE9;
+  --color-surface: #FFFFFF;
+  --color-ink: #14201C;
+  --color-ink-soft: #4B564F;
+  --color-line: #D9DAD1;
+  --color-brass: #A8763B;
+  --color-pine: #3E6259;
+  --color-pine-deep: #2A4740;
+  --color-danger: #A8442E;
+
+  --font-display: var(--font-fraunces), Georgia, serif;
+  --font-body: var(--font-public-sans), sans-serif;
+}
 
 body {
   background-color: #EDEFE9;
