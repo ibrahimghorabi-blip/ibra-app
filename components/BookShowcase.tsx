@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { BOOK } from "@/lib/site-config";
 
 export default function BookShowcase() {
@@ -28,19 +27,14 @@ export default function BookShowcase() {
               </div>
             ))}
           </div>
-          <div className="mt-6 flex flex-wrap gap-3">
-            <Link
+          <div className="mt-6">
+            <a
               href={BOOK.ctaPrimary.href}
-              className="rounded bg-pine-deep px-5 py-3 text-sm font-semibold text-[#F4F2EA]"
+              download
+              className="inline-block rounded bg-pine-deep px-5 py-3 text-sm font-semibold text-[#F4F2EA]"
             >
               {BOOK.ctaPrimary.label}
-            </Link>
-            <Link
-              href={BOOK.ctaSecondary.href}
-              className="rounded border border-line px-5 py-3 text-sm font-semibold text-ink"
-            >
-              {BOOK.ctaSecondary.label}
-            </Link>
+            </a>
           </div>
         </div>
       </div>

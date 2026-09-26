@@ -15,7 +15,8 @@ export default function Programs() {
       </div>
       <p className="mb-6 max-w-[60ch] text-sm leading-relaxed text-ink-soft">
         A look at what&rsquo;s offered in each area right now. No cart, no
-        pricing here — request a scope and we&rsquo;ll follow up directly.
+        pricing here — book a free session and we&rsquo;ll follow up
+        directly.
       </p>
 
       {PILLARS.map((pillar) => {
@@ -23,7 +24,7 @@ export default function Programs() {
         if (!item) return null;
         return (
           <div key={pillar.key} className="mt-10">
-            <h2 className="mb-3 font-display text-lg text-ink">{pillar.title}</h2>
+            <h2 className="mb-3 font-display text-lg text-ink">{item.title}</h2>
             <div className="glow-card max-w-[520px] rounded-md border border-line bg-surface p-5 backdrop-blur-md">
               <p className="text-[13px] leading-relaxed text-ink-soft">
                 {item.overview}
@@ -43,7 +44,7 @@ export default function Programs() {
                 onClick={() => setInquiryFor(item.title)}
                 className="mt-4 rounded border border-line px-3 py-2 text-[13px] font-semibold text-ink hover:border-pine"
               >
-                Request Scope / Inquire
+                Book a Free Session
               </button>
             </div>
           </div>

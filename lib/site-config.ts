@@ -176,7 +176,7 @@ export const BOOK = {
     "Tactical execution blueprints",
     "Direct entry points to advisory sprints",
   ],
-  ctaPrimary: { label: "Download Free Chapter 1", href: "/opportunities" },
+  ctaPrimary: { label: "Download Free Chapter 1", href: "/chapter-1.pdf" },
   ctaSecondary: { label: "Explore Venture Sprints", href: "/programs" },
 };
 
