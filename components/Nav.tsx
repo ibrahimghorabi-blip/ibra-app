@@ -2,15 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-
-const LINKS = [
-  { href: "/", label: "Home" },
-  { href: "/programs", label: "Programs" },
-  { href: "/products", label: "Products" },
-  { href: "/opportunities", label: "Opportunities" },
-  { href: "/about", label: "About" },
-  { href: "/contact", label: "Contact" },
-];
+import { BRAND, NAV } from "@/lib/site-config";
 
 export default function Nav() {
   const pathname = usePathname();
@@ -18,14 +10,14 @@ export default function Nav() {
   return (
     <header className="sticky top-0 z-30 border-b border-line bg-bg">
       <div className="mx-auto flex max-w-[1080px] items-center justify-between px-5 py-4">
-        <Link href="/" className="flex items-baseline gap-2">
-          <span className="font-display text-[22px]">Ibra</span>
-          <small className="text-[11px] font-medium text-ink-soft">
-            MARKET &amp; GROWTH ADVISORY
+        <Link href="/" className="flex flex-col leading-none">
+          <span className="font-display text-[22px] font-semibold">{BRAND.name}</span>
+          <small className="mt-0.5 text-[10px] font-medium uppercase tracking-[0.12em] text-ink-soft">
+            {BRAND.subtitle}
           </small>
         </Link>
         <nav className="hidden gap-5 text-sm text-ink-soft md:flex">
-          {LINKS.map((l) => (
+          {NAV.map((l) => (
             <Link
               key={l.href}
               href={l.href}
@@ -41,7 +33,7 @@ export default function Nav() {
         </nav>
       </div>
       <div className="flex gap-2 overflow-x-auto px-5 pb-3 md:hidden">
-        {LINKS.map((l) => (
+        {NAV.map((l) => (
           <Link
             key={l.href}
             href={l.href}

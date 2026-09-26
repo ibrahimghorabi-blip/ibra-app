@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Fraunces, Public_Sans } from "next/font/google";
 import "./globals.css";
+import AnnouncementBar from "@/components/AnnouncementBar";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import { CartProvider } from "@/lib/cart-context";
@@ -30,6 +31,7 @@ export default function RootLayout({
         className={`${fraunces.variable} ${publicSans.variable} font-body`}
       >
         <CartProvider>
+          <AnnouncementBar />
           <Nav />
           {children}
           <Footer />

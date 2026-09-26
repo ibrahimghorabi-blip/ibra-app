@@ -1,6 +1,6 @@
 "use client";
 
-import { PRODUCTS, fmt } from "@/lib/data";
+import { PRODUCTS, fmt } from "@/lib/site-config";
 import { useCart } from "@/lib/cart-context";
 import CartDrawer from "@/components/CartDrawer";
 import { useState } from "react";

@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, useEffect, useState, ReactNode } from "react";
-import { PRODUCTS, Product } from "./data";
+import { PRODUCTS, Product } from "./site-config";
 
 type CartEntry = { product: Product; qty: number };
 

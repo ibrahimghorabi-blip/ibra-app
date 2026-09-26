@@ -1,105 +1,61 @@
-import Link from "next/link";
-import { PILLARS, WHO_WE_HELP } from "@/lib/data";
+"use client";
 
-export default function Home() {
+import { PRODUCTS, fmt } from "@/lib/site-config";
+import { useCart } from "@/lib/cart-context";
+import CartDrawer from "@/components/CartDrawer";
+import { useState } from "react";
+
+export default function Products() {
+  const { addToCart } = useCart();
+  const [justAdded, setJustAdded] = useState<string | null>(null);
+
+  const handleAdd = (id: string) => {
+    addToCart(id);
+    setJustAdded(id);
+    setTimeout(() => setJustAdded(null), 900);
+  };
+
   return (
-    <>
-      <section className="mx-auto grid max-w-[1080px] gap-7 px-5 py-14 md:grid-cols-[1.1fr_0.9fr] md:items-center md:pt-16">
-        <div>
-          <h1 className="font-display text-[clamp(32px,5.6vw,50px)] leading-[1.08]">
-            We&rsquo;re shaping the way
-            <br />
-            business is done.
-          </h1>
-          <p className="mt-4 max-w-[46ch] text-base leading-relaxed text-ink-soft">
-            Technical structure, business development consultation, media
-            &amp; marketing, and branding — brought together to help you
-            build, restructure, or grow with clarity.
-          </p>
-          <div className="mt-4 flex flex-wrap gap-2">
-            {["10+ years · Tech", "Sales", "Strategic Business Development"].map(
-              (t) => (
-                <span
-                  key={t}
-                  className="rounded-full border border-line bg-surface px-3 py-1 text-xs font-semibold text-pine-deep"
-                >
-                  {t}
-                </span>
-              )
-            )}
-          </div>
-          <div className="mt-6 flex flex-wrap gap-3">
-            <Link
-              href="/programs"
-              className="rounded bg-pine-deep px-5 py-3 text-sm font-semibold text-[#F4F2EA]"
-            >
-              Explore what we do
-            </Link>
-            <Link
-              href="/products"
-              className="rounded border border-ink px-5 py-3 text-sm font-semibold"
-            >
-              Get the Ebook
-            </Link>
-          </div>
-        </div>
-        <div className="aspect-[4/3] rounded-md bg-gradient-to-br from-pine to-pine-deep" />
-      </section>
-
-      <main className="mx-auto max-w-[1080px] px-5 pb-24">
-        <div className="mb-5 mt-10 flex items-baseline justify-between border-b border-line pb-3">
-          <h2 className="font-display text-2xl">What we do</h2>
-          <Link href="/programs" className="text-sm text-ink-soft">
-            Programs, page →
-          </Link>
-        </div>
-        <div className="grid gap-4 sm:grid-cols-2">
-          {PILLARS.map((p) => (
-            <div key={p.key} className="rounded-md border border-line bg-surface p-5">
-              <h3 className="font-display text-lg">{p.title}</h3>
-              <p className="mt-2 text-[13px] leading-relaxed text-ink-soft">
-                {p.blurb}
-              </p>
-              <Link
-                href="/programs"
-                className="mt-3 inline-block rounded border border-ink px-3 py-1.5 text-[13px] font-semibold"
-              >
-                Learn more
-              </Link>
-            </div>
-          ))}
-        </div>
-
-        <div className="mb-5 mt-12 flex items-baseline justify-between border-b border-line pb-3">
-          <h2 className="font-display text-2xl">Who we help</h2>
-        </div>
-        <div className="grid gap-4 sm:grid-cols-2">
-          {WHO_WE_HELP.map((w) => (
-            <div key={w.title} className="rounded-md border border-line bg-surface p-5">
-              <h3 className="font-display text-lg">{w.title}</h3>
-              <p className="mt-2 text-[13px] leading-relaxed text-ink-soft">
-                {w.blurb}
-              </p>
-            </div>
-          ))}
-        </div>
-
-        <div className="mt-12 flex flex-wrap items-center justify-between gap-4 rounded-md border border-line bg-surface p-6">
-          <div>
-            <h2 className="font-display text-xl">The Ebook</h2>
-            <p className="mt-1 max-w-[50ch] text-sm text-ink-soft">
-              GCC Market-Entry Playbook — a practical guide to entering GCC
-              markets. One book, one place to get it.
-            </p>
-          </div>
-          <Link
-            href="/products"
-            className="rounded bg-pine-deep px-5 py-3 text-sm font-semibold text-[#F4F2EA]"
+    <main className="mx-auto max-w-[1080px] px-5 pb-24 pt-8">
+      <div className="mb-5 flex flex-wrap items-baseline justify-between gap-3 border-b border-line pb-3">
+        <h1 className="font-display text-2xl">Products</h1>
+        <CartDrawer />
+      </div>
+      <p className="mb-6 max-w-[60ch] text-sm leading-relaxed text-ink-soft">
+        The Ebook, plus wellness and productivity tools to support the goals
+        in between sessions.
+      </p>
+      <div className="grid gap-5 sm:grid-cols-2 md:grid-cols-3">
+        {PRODUCTS.map((p) => (
+          <div
+            key={p.id}
+            className="flex flex-col rounded-md border border-line bg-surface"
           >
-            Get the Ebook
-          </Link>
-        </div>
-      </main>
-    </>
+            <div className="aspect-square bg-bg" />
+            <div className="flex flex-1 flex-col gap-1.5 p-4">
+              <div className="text-[11px] text-ink-soft">{p.cat}</div>
+              <h3 className="text-base">{p.name}</h3>
+              <p className="text-[13px] leading-relaxed text-ink-soft">
+                {p.desc}
+              </p>
+              <div className="mt-auto flex items-center justify-between pt-2">
+                <b className="text-[15px]">{fmt(p.price)}</b>
+                <button
+                  onClick={() => handleAdd(p.id)}
+                  className={
+                    "rounded border px-3 py-1.5 text-[13px] font-semibold " +
+                    (justAdded === p.id
+                      ? "border-pine-deep bg-pine-deep text-white"
+                      : "border-ink")
+                  }
+                >
+                  {justAdded === p.id ? "Added" : "Add"}
+                </button>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </main>
   );
 }
