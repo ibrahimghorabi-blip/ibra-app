@@ -26,16 +26,16 @@ export const ANNOUNCEMENT = {
 
 export const HERO = {
   eyebrow: "10+ YEARS IN TECH ARCHITECTURE, ENTERPRISE SALES & STRATEGIC BD",
-  headline: "We build the technical systems and close the commercial deals that scale ventures.",
+  headline: "We build the systems and close the deals that move a business forward.",
   subhead:
-    "Bridging the gap between scalable software architecture and high-ticket enterprise revenue. We engineer platforms that scale, and build the commercial pipelines that fund them.",
+    "From your first technical decision to your next commercial deal — the structure, strategy, and story to move with clarity, whatever stage you're at.",
   primaryCta: { label: "Explore what we do", href: "/#what-we-do" },
   secondaryCta: { label: "Who we help", href: "/#who-we-help" },
 };
 
 export const TRUST_METRICS = [
   { value: "10+ Years", label: "Enterprise Architecture" },
-  { value: "End-to-End", label: "Commercial Sales Execution" },
+  { value: "End-to-End", label: "From Strategy to Execution" },
   { value: "Bespoke", label: "Venture Growth & Restructuring" },
 ];
 
