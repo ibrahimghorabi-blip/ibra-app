@@ -66,9 +66,7 @@ function OpportunitiesContent() {
     <main className="mx-auto max-w-[1080px] px-5 pb-24 pt-8">
       <div className="mb-5 flex flex-col gap-1 border-b border-line pb-3 sm:flex-row sm:items-baseline sm:justify-between">
         <h1 className="font-display text-2xl text-ink">Opportunities</h1>
-        <span className="text-[13px] text-ink-soft">Tell us what you need</span>
-      </div>
-      <p className="mb-8 max-w-[60ch] text-sm leading-relaxed text-ink-soft">
+              <p className="mb-8 max-w-[60ch] text-sm leading-relaxed text-ink-soft">
         A few quick questions, then your details — we&rsquo;ll follow up
         directly.
       </p>
