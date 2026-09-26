@@ -1,6 +1,5 @@
 // lib/site-config.ts
 // Single source of truth for site copy, nav, and structured content.
-// Edit values here — component files should not need to change for content updates.
 
 export type NavItem = { label: string; href: string };
 
@@ -15,7 +14,6 @@ export const NAV: NavItem[] = [
   { label: "Products", href: "/products" },
   { label: "Opportunities", href: "/opportunities" },
   { label: "About", href: "/about" },
-  { label: "Contact", href: "/contact" },
 ];
 
 export const ANNOUNCEMENT = {
@@ -30,78 +28,50 @@ export const HERO = {
   headline: "We're shaping the way business is done.",
   subhead:
     "Technical structure, business development consultation, media & marketing, and branding — equipping you with the tools and data to upgrade your business.",
-  primaryCta: { label: "Explore what we do", href: "/programs" },
+  primaryCta: { label: "Explore what we do", href: "/#what-we-do" },
   secondaryCta: { label: "Who we help", href: "/#who-we-help" },
 };
 
-export const DIAGNOSTIC = {
-  title: "Quick Venture Diagnostic",
-  blurb: "Two questions, one direction to start from.",
-  audiences: [
-    "Startup",
-    "Business owner restructuring",
-    "Student",
-    "Owner or employee",
-  ],
-  bottlenecks: [
-    "Technical structure",
-    "Business development",
-    "Media, marketing & branding",
-    "Not sure yet",
-  ],
-  recommendations: {
-    "Technical structure": {
-      text: "Start with a Technical Structure consultation — a focused session to assess the foundation before committing to a build.",
-      href: "/programs",
-    },
-    "Business development": {
-      text: "Start with a Business Development consultation — one session on the specific partnership or go-to-market question.",
-      href: "/programs",
-    },
-    "Media, marketing & branding": {
-      text: "Start with a Marketing Advisory or Branding consultation, depending on whether the gap is visibility or identity.",
-      href: "/programs",
-    },
-    "Not sure yet": {
-      text: "Share what you're working on directly — that's the fastest way to get pointed at the right starting point.",
-      href: "/opportunities",
-    },
-  } as Record<string, { text: string; href: string }>,
+// The card shown in the hero that promotes the diagnostic — the actual
+// question flow now lives on the Opportunities page, not the homepage.
+export const DIAGNOSTIC_PROMO = {
+  title: "Not sure where to start?",
+  blurb:
+    "Tell us who you are and what you need — a couple of quick questions, then we follow up directly.",
+  ctaLabel: "Start the diagnostic",
+  href: "/opportunities",
 };
 
-// Not currently rendered on the homepage — kept here for a future
-// dedicated book page or Products page feature.
-export const BOOK = {
-  id: "book",
-  title: "The Opportunities Engine",
-  subtitle:
-    "The playbook translating 10+ years of tech and commercial deal-making into step-by-step frameworks.",
-  description:
-    "Not theory — a working system for finding, evaluating, and acting on the opportunities already in front of a business, built from real deals across tech, sales, and strategic BD.",
-  highlights: [
-    "Real case teardowns",
-    "Tactical execution blueprints",
-    "Direct entry points to advisory sprints",
-  ],
-  ctaPrimary: { label: "Download Free Preview", href: "/products" },
-  ctaSecondary: { label: "Request Full Copy", href: "/opportunities" },
-};
+// Used on the Opportunities page's intake form.
+export const AUDIENCES = [
+  "Startup",
+  "Business owner restructuring",
+  "Student",
+  "Owner",
+  "Employee",
+];
+
+export const NEEDS = [
+  "Technical structure",
+  "Business development",
+  "Media, marketing & branding",
+  "Not sure yet",
+];
 
 export const WHO_WE_HELP = [
   { title: "Startups", blurb: "Early-stage teams building the structure to move fast without breaking things." },
   { title: "Business owners restructuring", blurb: "Owners reworking a business model, offer, or operating structure." },
   { title: "Students", blurb: "Building real-world knowledge in business, tech, or strategy." },
-  { title: "Owners & employees", blurb: "Anyone seeking consultation on a specific market or business topic." },
+  { title: "Owners", blurb: "We help owners achieve their strategies more efficiently, with exposure to a wide variety of opportunities." },
+  { title: "Employees", blurb: "We help employees equip with the right tools to expand their pipeline and strategies to achieve results at work." },
 ];
 
 export type ProgramItem = {
   pillar: "technical" | "bizdev" | "marketing";
-  category: string;
   title: string;
   overview: string;
   deliverables: string[];
   duration: string;
-  availability: string;
 };
 
 export const PILLARS = [
@@ -122,78 +92,29 @@ export const PILLARS = [
   },
 ];
 
+// One slot per pillar for now — add more entries to PROGRAMS (same pillar
+// key) once each service area is ready to offer multiple formats.
 export const PROGRAMS: ProgramItem[] = [
   {
     pillar: "technical",
-    category: "Technical Structure",
-    title: "Technical Foundation Build",
-    overview: "Setting up the core technical structure — stack, systems, and workflows — a business runs on.",
-    deliverables: ["Stack & systems audit", "Workflow architecture", "Implementation roadmap"],
-    duration: "3–4 weeks",
-    availability: "Intake Open",
-  },
-  {
-    pillar: "technical",
-    category: "Technical Structure",
-    title: "Technical Structure Consultation",
-    overview: "A focused session to assess and plan your technical foundation.",
-    deliverables: ["90-minute working session", "Written recommendation summary"],
-    duration: "1 session",
-    availability: "2 Slots Left",
+    title: "Technical Structure",
+    overview: "A working session to assess and plan the technical foundation a business runs on.",
+    deliverables: ["Stack & systems review", "Workflow recommendations", "Implementation roadmap"],
+    duration: "Scoped per engagement",
   },
   {
     pillar: "bizdev",
-    category: "Business Development",
-    title: "Business Development Accelerator",
-    overview: "A structured track for building partnerships and a go-to-market plan.",
-    deliverables: ["Partnership target list", "GTM plan", "Weekly working sessions"],
-    duration: "6 weeks",
-    availability: "Active Sprint",
-  },
-  {
-    pillar: "bizdev",
-    category: "Business Development",
     title: "Business Development Consultation",
-    overview: "A direct session on one specific business development challenge.",
-    deliverables: ["90-minute working session", "Action plan"],
-    duration: "1 session",
-    availability: "Intake Open",
+    overview: "A direct session on a specific business development, partnership, or go-to-market question.",
+    deliverables: ["Working session", "Written action plan"],
+    duration: "Scoped per engagement",
   },
   {
     pillar: "marketing",
-    category: "Media & Marketing",
-    title: "Media & Marketing Launch Package",
-    overview: "A structured media and marketing setup — content, channels, and campaign foundations.",
-    deliverables: ["Channel strategy", "Content foundations", "Campaign launch plan"],
-    duration: "4 weeks",
-    availability: "Intake Open",
-  },
-  {
-    pillar: "marketing",
-    category: "Media & Marketing",
-    title: "Marketing Advisory Session",
-    overview: "A direct session on marketing strategy or channel planning.",
-    deliverables: ["90-minute working session", "Channel recommendation"],
-    duration: "1 session",
-    availability: "2 Slots Left",
-  },
-  {
-    pillar: "marketing",
-    category: "Branding",
-    title: "Brand Identity Package",
-    overview: "Full brand identity development — positioning, voice, and visual direction.",
-    deliverables: ["Positioning statement", "Voice guide", "Visual direction"],
-    duration: "3–5 weeks",
-    availability: "Intake Open",
-  },
-  {
-    pillar: "marketing",
-    category: "Branding",
-    title: "Branding Consultation",
-    overview: "A focused session on brand positioning or visual direction.",
-    deliverables: ["90-minute working session", "Direction summary"],
-    duration: "1 session",
-    availability: "Active Sprint",
+    title: "Media, Marketing & Branding",
+    overview: "A session covering marketing strategy, channel planning, or brand positioning and identity.",
+    deliverables: ["Working session", "Direction & recommendation summary"],
+    duration: "Scoped per engagement",
   },
 ];
 
@@ -209,6 +130,24 @@ export const PRODUCTS: Product[] = [
     price: 99,
   },
 ];
+
+// Not currently linked from navigation — kept for a future dedicated page
+// or a Products feature.
+export const BOOK = {
+  id: "book",
+  title: "The Opportunities Engine",
+  subtitle:
+    "The playbook translating 10+ years of tech and commercial deal-making into step-by-step frameworks.",
+  description:
+    "Not theory — a working system for finding, evaluating, and acting on the opportunities already in front of a business, built from real deals across tech, sales, and strategic BD.",
+  highlights: [
+    "Real case teardowns",
+    "Tactical execution blueprints",
+    "Direct entry points to advisory sprints",
+  ],
+  ctaPrimary: { label: "Download Free Preview", href: "/products" },
+  ctaSecondary: { label: "Request Full Copy", href: "/opportunities" },
+};
 
 export function fmt(n: number) {
   return "AED " + n.toLocaleString();

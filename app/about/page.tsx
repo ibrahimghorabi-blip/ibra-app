@@ -1,9 +1,9 @@
 export default function About() {
   const tags = [
-    "Coaching",
+    "Technical structure",
     "Business development",
-    "Technology services",
-    "Corporate development",
+    "Media & marketing",
+    "Branding",
     "Strategic sourcing",
   ];
 
@@ -18,21 +18,23 @@ export default function About() {
         </div>
         <div>
           <p className="mb-3.5 text-[15px] leading-relaxed text-ink-soft">
-            <em>We&rsquo;re shaping the way business is done.</em> I&rsquo;m
-            Ibra — 10+ years across tech, sales, and strategic business
-            development, working across the GCC, EMEA, Europe, and China on
-            business development, SaaS and tech market-entry partnerships,
-            SME advisory, and corporate development.
+            <em>We&rsquo;re shaping the way business is done.</em> Ten years
+            spent inside deal rooms, sales floors, and market launches
+            across tech, sales, and strategic business development taught
+            us the same lesson from every angle: most businesses
+            aren&rsquo;t short on ambition, they&rsquo;re short on
+            structure.
           </p>
           <p className="mb-3.5 text-[15px] leading-relaxed text-ink-soft">
-            Before this, I built a background across fitness solutions
-            sales, mobile communications, running my own apparel business,
-            strategic sourcing, and marketing and brand strategy — which is
-            where a lot of the practical, cross-industry grounding behind
-            these programs comes from.
+            That's what this is built around — the technical foundation, the
+            partnerships, the story, and the brand a business needs to move
+            from idea to execution. The work spans the GCC, EMEA, Europe,
+            and China, and draws on experience across fitness, mobile,
+            apparel, sourcing, and marketing — different industries, the
+            same underlying patterns.
           </p>
           <p className="mb-3.5 text-[15px] leading-relaxed text-ink-soft">
-            I work in Arabic and English, with intermediate Spanish.
+            We work in Arabic and English, with intermediate Spanish.
           </p>
           <div className="mt-4 flex flex-wrap gap-2">
             {tags.map((t) => (
