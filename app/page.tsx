@@ -2,6 +2,7 @@ import Link from "next/link";
 import { HERO, PILLARS, WHO_WE_HELP } from "@/lib/site-config";
 import VentureAssessmentCard from "@/components/VentureAssessmentCard";
 import TrustBar from "@/components/TrustBar";
+import BookShowcase from "@/components/BookShowcase";
 
 export default function Home() {
   return (
@@ -39,15 +40,16 @@ export default function Home() {
         </div>
       </section>
 
+      <div className="mx-auto max-w-[1080px] px-5 pt-10">
+        <BookShowcase />
+      </div>
+
       <main className="mx-auto max-w-[1080px] px-5 pb-24">
         <div
           id="what-we-do"
-          className="mb-5 mt-14 flex scroll-mt-20 flex-col gap-1 border-b border-line pb-3 sm:flex-row sm:items-baseline sm:justify-between"
+          className="mb-5 mt-4 scroll-mt-20 border-b border-line pb-3"
         >
           <h2 className="font-display text-2xl text-ink">What we do</h2>
-          <Link href="/programs" className="text-sm text-ink-soft hover:text-ink">
-            Programs, page →
-          </Link>
         </div>
         <div className="grid gap-4 sm:grid-cols-3">
           {PILLARS.map((p) => (
