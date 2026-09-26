@@ -11,25 +11,29 @@ export default function Programs() {
   return (
     <main className="mx-auto max-w-[1080px] px-5 pb-24 pt-8">
       <div className="mb-5 border-b border-line pb-3">
-        <h1 className="font-display text-2xl text-ink">Programs</h1>
+        <h1 className="font-display text-2xl text-ink">Milestone-Based Engagements</h1>
       </div>
-      <p className="mb-6 max-w-[60ch] text-sm leading-relaxed text-ink-soft">
-        A look at what&rsquo;s offered in each area right now. No cart, no
-        pricing here — book a free session and we&rsquo;ll follow up
-        directly.
+      <p className="mb-6 max-w-[62ch] text-sm leading-relaxed text-ink-soft">
+        Every venture requires a distinct technical architecture and
+        go-to-market pipeline. We scope by milestone deliverables — not
+        unpredictable billable hours.
       </p>
 
-      {PILLARS.map((pillar) => {
-        const item = PROGRAMS.find((i) => i.pillar === pillar.key);
-        if (!item) return null;
-        return (
-          <div key={pillar.key} className="mt-10">
-            <h2 className="mb-3 font-display text-lg text-ink">{item.title}</h2>
-            <div className="glow-card max-w-[520px] rounded-md border border-line bg-surface p-5 backdrop-blur-md">
+      <div className="grid gap-6 sm:grid-cols-2">
+        {PILLARS.map((pillar) => {
+          const item = PROGRAMS.find((i) => i.pillar === pillar.key);
+          if (!item) return null;
+          return (
+            <div key={pillar.key} className="glow-card flex flex-col rounded-md border border-line bg-surface p-5 backdrop-blur-md">
+              <h2 className="mb-2 font-display text-lg text-ink">{item.title}</h2>
               <p className="text-[13px] leading-relaxed text-ink-soft">
                 {item.overview}
               </p>
-              <ul className="mt-3 flex flex-col gap-1.5">
+
+              <div className="mt-4 text-[11px] font-semibold uppercase tracking-wide text-ink-soft">
+                What you leave with
+              </div>
+              <ul className="mt-2 flex flex-col gap-1.5">
                 {item.deliverables.map((d) => (
                   <li
                     key={d}
@@ -40,16 +44,31 @@ export default function Programs() {
                   </li>
                 ))}
               </ul>
+
+              <div className="mt-4 text-[11px] font-semibold uppercase tracking-wide text-ink-soft">
+                Topics we cover
+              </div>
+              <div className="mt-2 flex flex-wrap gap-1.5">
+                {item.topics.map((t) => (
+                  <span
+                    key={t}
+                    className="rounded-full border border-line px-2.5 py-1 text-[11px] text-ink-soft"
+                  >
+                    {t}
+                  </span>
+                ))}
+              </div>
+
               <button
                 onClick={() => setInquiryFor(item.title)}
-                className="mt-4 rounded border border-line px-3 py-2 text-[13px] font-semibold text-ink hover:border-pine"
+                className="mt-5 rounded border border-line px-3 py-2 text-[13px] font-semibold text-ink hover:border-pine"
               >
                 Book a Free Session
               </button>
             </div>
-          </div>
-        );
-      })}
+          );
+        })}
+      </div>
 
       <div className="mt-12 rounded-md border border-dashed border-line p-6 text-center">
         <p className="mb-3 text-sm text-ink-soft">

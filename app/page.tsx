@@ -1,103 +1,61 @@
-import Link from "next/link";
-import { HERO, PILLARS, WHO_WE_HELP } from "@/lib/site-config";
-import VentureAssessmentCard from "@/components/VentureAssessmentCard";
-import TrustBar from "@/components/TrustBar";
-import BookShowcase from "@/components/BookShowcase";
+export default function About() {
+  const tags = [
+    "Technical structure",
+    "Business development",
+    "Media & marketing",
+    "Branding",
+    "Strategic sourcing",
+  ];
 
-export default function Home() {
   return (
-    <>
-      <section className="mx-auto max-w-[1080px] px-5 pb-4 pt-14 md:pt-16">
-        <div className="grid gap-7 md:grid-cols-[1.1fr_0.9fr] md:items-start">
-          <div>
-            <span className="mb-4 inline-flex items-center gap-2 rounded-full border border-line px-3 py-1.5 text-[11px] font-bold uppercase tracking-[0.08em] text-ink-soft">
-              <span className="h-1.5 w-1.5 rounded-full bg-pine pulse-dot" />
-              {HERO.eyebrow}
-            </span>
-            <h1 className="font-display text-[clamp(30px,5vw,46px)] leading-[1.12] text-ink">
-              {HERO.headline}
-            </h1>
-            <p className="mt-4 max-w-[52ch] text-base leading-relaxed text-ink-soft">
-              {HERO.subhead}
-            </p>
-            <div className="mt-6 flex flex-wrap gap-3">
-              <Link
-                href={HERO.primaryCta.href}
-                className="rounded bg-pine-deep px-5 py-3 text-sm font-semibold text-[#F4F2EA]"
-              >
-                {HERO.primaryCta.label}
-              </Link>
-              <Link
-                href={HERO.secondaryCta.href}
-                className="rounded border border-line px-5 py-3 text-sm font-semibold text-ink"
-              >
-                {HERO.secondaryCta.label}
-              </Link>
-            </div>
-            <TrustBar />
-          </div>
-          <VentureAssessmentCard />
-        </div>
-      </section>
-
-      <div className="mx-auto max-w-[1080px] px-5 pt-10">
-        <BookShowcase />
+    <main className="mx-auto max-w-[1080px] px-5 pb-24 pt-8">
+      <div className="mb-5 border-b border-line pb-3">
+        <h1 className="font-display text-2xl text-ink">About</h1>
       </div>
-
-      <main className="mx-auto max-w-[1080px] px-5 pb-24">
-        <div
-          id="what-we-do"
-          className="mb-5 mt-4 scroll-mt-20 border-b border-line pb-3"
-        >
-          <h2 className="font-display text-2xl text-ink">What we do</h2>
+      <div className="grid gap-6 md:grid-cols-[0.8fr_1.2fr]">
+        <div className="glow-card overflow-hidden rounded-md border border-line">
+          <img
+            src="/about-visual.svg"
+            alt="Ibra — Market & Growth Advisory"
+            className="aspect-square w-full object-cover"
+          />
         </div>
-        <div className="grid gap-4 sm:grid-cols-3">
-          {PILLARS.map((p) => (
-            <div
-              key={p.key}
-              className="glow-card rounded-md border border-line bg-surface p-5 backdrop-blur-md"
-            >
-              <h3 className="font-display text-lg text-ink">{p.title}</h3>
-              <p className="mt-2 text-[13px] leading-relaxed text-ink-soft">
-                {p.blurb}
-              </p>
-              <Link
-                href="/programs"
-                className="mt-3 inline-block rounded border border-line px-3 py-1.5 text-[13px] font-semibold text-ink hover:border-pine"
+        <div>
+          <p className="mb-3.5 text-[15px] leading-relaxed text-ink-soft">
+            <em className="text-ink">We&rsquo;re shaping the way business is done.</em>{" "}
+            Ten years spent inside deal rooms, sales floors, and market
+            launches across tech, sales, and strategic business development
+            taught us the same lesson from every angle: most businesses
+            aren&rsquo;t short on ambition, they&rsquo;re short on
+            structure.
+          </p>
+          <p className="mb-3.5 text-[15px] leading-relaxed text-ink-soft">
+            That's what this is built around — the technical foundation, the
+            partnerships, the story, and the brand a business needs to move
+            from idea to execution. The work spans the GCC, EMEA, Europe,
+            and China, and draws on experience across fitness, mobile,
+            apparel, sourcing, and marketing — different industries, the
+            same underlying patterns.
+          </p>
+          <p className="mb-3.5 text-[15px] leading-relaxed text-ink-soft">
+            That same thinking fills the four programs and the book on this
+            site — practical structure you can use, not more theory to read.
+          </p>
+          <p className="mb-3.5 text-[15px] leading-relaxed text-ink-soft">
+            We work in Arabic and English, with intermediate Spanish.
+          </p>
+          <div className="mt-4 flex flex-wrap gap-2">
+            {tags.map((t) => (
+              <span
+                key={t}
+                className="rounded-full border border-line px-3 py-1.5 text-xs text-ink-soft"
               >
-                Learn more
-              </Link>
-            </div>
-          ))}
-        </div>
-
-        <div
-          id="who-we-help"
-          className="mb-5 mt-14 scroll-mt-20 border-b border-line pb-3"
-        >
-          <h2 className="font-display text-2xl text-ink">Who we help</h2>
-        </div>
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {WHO_WE_HELP.map((w) => (
-            <Link
-              key={w.title}
-              href={w.href}
-              className="glow-card flex flex-col rounded-md border border-line bg-surface p-5 backdrop-blur-md"
-            >
-              <h3 className="font-display text-lg text-ink">{w.title}</h3>
-              <p className="mt-2 text-[13px] leading-relaxed text-ink-soft">
-                {w.blurb}
-              </p>
-              <p className="mt-3 text-[11px] font-medium uppercase tracking-wide text-brass">
-                {w.bottleneck}
-              </p>
-              <span className="mt-4 text-[13px] font-semibold text-pine">
-                Get in touch →
+                {t}
               </span>
-            </Link>
-          ))}
+            ))}
+          </div>
         </div>
-      </main>
-    </>
+      </div>
+    </main>
   );
 }

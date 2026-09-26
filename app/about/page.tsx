@@ -13,8 +13,12 @@ export default function About() {
         <h1 className="font-display text-2xl text-ink">About</h1>
       </div>
       <div className="grid gap-6 md:grid-cols-[0.8fr_1.2fr]">
-        <div className="glow-card flex aspect-square items-center justify-center rounded-md border border-line bg-surface backdrop-blur-md">
-          <span className="font-display text-5xl text-ink">I</span>
+        <div className="glow-card overflow-hidden rounded-md border border-line">
+          <img
+            src="/about-visual.svg"
+            alt="Ibra — Market & Growth Advisory"
+            className="aspect-square w-full object-cover"
+          />
         </div>
         <div>
           <p className="mb-3.5 text-[15px] leading-relaxed text-ink-soft">
@@ -32,6 +36,10 @@ export default function About() {
             and China, and draws on experience across fitness, mobile,
             apparel, sourcing, and marketing — different industries, the
             same underlying patterns.
+          </p>
+          <p className="mb-3.5 text-[15px] leading-relaxed text-ink-soft">
+            That same thinking fills the four programs and the book on this
+            site — practical structure you can use, not more theory to read.
           </p>
           <p className="mb-3.5 text-[15px] leading-relaxed text-ink-soft">
             We work in Arabic and English, with intermediate Spanish.
