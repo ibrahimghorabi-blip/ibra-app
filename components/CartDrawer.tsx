@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useCart } from "@/lib/cart-context";
-import { fmt } from "@/lib/data";
+import { fmt } from "@/lib/site-config";
 
 export default function CartDrawer() {
   const { entries, totalCount, subtotal, setQty, clearCart } = useCart();
