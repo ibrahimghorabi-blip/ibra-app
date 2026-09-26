@@ -11,7 +11,7 @@ export default function Programs() {
   return (
     <main className="mx-auto max-w-[1080px] px-5 pb-24 pt-8">
       <div className="mb-5 flex flex-col gap-1 border-b border-line pb-3 sm:flex-row sm:items-baseline sm:justify-between">
-        <h1 className="font-display text-2xl">Programs</h1>
+        <h1 className="font-display text-2xl text-ink">Programs</h1>
         <span className="text-[13px] text-ink-soft">
           Technical · Business dev · Media, Marketing &amp; Branding
         </span>
@@ -26,8 +26,8 @@ export default function Programs() {
         if (!item) return null;
         return (
           <div key={pillar.key} className="mt-10">
-            <h2 className="mb-3 font-display text-lg">{pillar.title}</h2>
-            <div className="max-w-[520px] rounded-md border border-line bg-surface p-5">
+            <h2 className="mb-3 font-display text-lg text-ink">{pillar.title}</h2>
+            <div className="glow-card max-w-[520px] rounded-md border border-line bg-surface p-5 backdrop-blur-md">
               <p className="text-[13px] leading-relaxed text-ink-soft">
                 {item.overview}
               </p>
@@ -44,7 +44,7 @@ export default function Programs() {
               </ul>
               <button
                 onClick={() => setInquiryFor(item.title)}
-                className="mt-4 rounded border border-ink px-3 py-2 text-[13px] font-semibold"
+                className="mt-4 rounded border border-line px-3 py-2 text-[13px] font-semibold text-ink hover:border-pine"
               >
                 Request Scope / Inquire
               </button>

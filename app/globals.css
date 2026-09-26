@@ -1,28 +1,47 @@
 @import "tailwindcss";
 
 @theme {
-  --color-bg: #EDEFE9;
-  --color-surface: #FFFFFF;
-  --color-ink: #14201C;
-  --color-ink-soft: #4B564F;
-  --color-line: #D9DAD1;
-  --color-brass: #A8763B;
-  --color-pine: #3E6259;
-  --color-pine-deep: #2A4740;
-  --color-danger: #A8442E;
+  --color-bg: #09090b;
+  --color-surface: rgba(24, 24, 27, 0.6);
+  --color-ink: #fafafa;
+  --color-ink-soft: #a1a1aa;
+  --color-line: #27272a;
+  --color-brass: #34d399;
+  --color-pine: #10b981;
+  --color-pine-deep: #059669;
+  --color-danger: #f87171;
 
   --font-display: var(--font-fraunces), Georgia, serif;
   --font-body: var(--font-public-sans), sans-serif;
 }
 
 body {
-  background-color: #EDEFE9;
-  color: #14201C;
+  background-color: #09090b;
+  color: #fafafa;
 }
 
-@media (prefers-color-scheme: dark) {
+/* This is the brand's fixed theme, not a light/dark toggle — stays dark
+   regardless of the visitor's system preference. */
+@media (prefers-color-scheme: light) {
   body {
-    background-color: #131A17;
-    color: #ECEAE2;
+    background-color: #09090b;
+    color: #fafafa;
   }
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.5); }
+  50% { opacity: 0.6; box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+}
+.pulse-dot {
+  animation: pulse-dot 2s ease-in-out infinite;
+  border-radius: 9999px;
+}
+
+.glow-card {
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.glow-card:hover {
+  border-color: rgba(16, 185, 129, 0.4);
+  box-shadow: 0 0 28px rgba(16, 185, 129, 0.12);
 }

@@ -1,177 +1,278 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { AUDIENCES, NEEDS } from "@/lib/site-config";
+import { Suspense, useState } from "react";
+import { useSearchParams } from "next/navigation";
+import { AUDIENCES, NEEDS, OPPORTUNITY_ANNOUNCEMENTS } from "@/lib/site-config";
 
-type Opportunity = { name: string; audience: string; need: string; when: string };
+type FormState = {
+  audience: string;
+  need: string;
+  haveNeed: string;
+  experience: string;
+  name: string;
+  email: string;
+  phone: string;
+  age: string;
+  website: string;
+};
 
-const SEED: Opportunity[] = [
-  {
-    name: "Ibra Team",
-    audience: "Hiring",
-    need: "We are hiring | Remote job | Sales Consultant. Competitive package. Apply by sending your CV to: example@example.com.",
-    when: "Posted by us",
-  },
-  { name: "Ali R.", audience: "Startup", need: "SaaS company seeking a distribution partner across the GCC.", when: "Posted earlier" },
-  { name: "Sara K.", audience: "Business owner restructuring", need: "Startup looking for a growth advisor ahead of a Series A raise.", when: "Posted earlier" },
-];
+const EMPTY: FormState = {
+  audience: "",
+  need: "",
+  haveNeed: "",
+  experience: "",
+  name: "",
+  email: "",
+  phone: "",
+  age: "",
+  website: "",
+};
 
-const STORAGE_KEY = "ibra-opportunities-v2";
+const TOTAL_STEPS = 5;
 
-export default function Opportunities() {
-  const [list, setList] = useState<Opportunity[]>(SEED);
+function OpportunitiesContent() {
+  const searchParams = useSearchParams();
+  const segment = searchParams.get("segment");
 
-  const [audience, setAudience] = useState("");
-  const [need, setNeed] = useState("");
-  const [haveNeed, setHaveNeed] = useState("");
-  const [experience, setExperience] = useState("");
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [age, setAge] = useState("");
-  const [website, setWebsite] = useState("");
+  const [step, setStep] = useState(0);
+  const [form, setForm] = useState<FormState>({
+    ...EMPTY,
+    audience: segment === "Startup" ? "Startup" : "",
+  });
   const [submitted, setSubmitted] = useState(false);
 
-  useEffect(() => {
-    try {
-      const raw = localStorage.getItem(STORAGE_KEY);
-      if (raw) setList(JSON.parse(raw));
-    } catch {
-      // fall back to seed data
-    }
-  }, []);
+  const update = (patch: Partial<FormState>) => setForm((f) => ({ ...f, ...patch }));
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!audience || !need || !haveNeed || !name || !email) return;
-    const next = [{ name, audience, need: haveNeed, when: "Just now" }, ...list];
-    setList(next);
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
-    } catch {
-      // this browser won't persist it — fine, still shows for this session
-    }
+  const canAdvance = () => {
+    if (step === 0) return !!form.audience;
+    if (step === 1) return !!form.need;
+    if (step === 2) return !!form.haveNeed.trim();
+    if (step === 3) return true; // experience is optional
+    return true;
+  };
+
+  const handleSubmit = () => {
+    if (!form.name || !form.email) return;
+    // Demo only — this does not post to the public list below, which is
+    // curated separately. Wire this to an email/database endpoint when ready.
     setSubmitted(true);
-    setAudience("");
-    setNeed("");
-    setHaveNeed("");
-    setExperience("");
-    setName("");
-    setEmail("");
-    setPhone("");
-    setAge("");
-    setWebsite("");
   };
 
   const inputClass =
-    "rounded border border-line bg-surface px-3 py-2.5 text-sm";
-  const labelClass = "mt-3 text-xs font-semibold text-ink-soft";
+    "w-full rounded border border-line bg-surface px-3 py-2.5 text-sm text-ink backdrop-blur-md";
+  const labelClass = "mb-2 block text-sm font-semibold text-ink-soft";
 
   return (
     <main className="mx-auto max-w-[1080px] px-5 pb-24 pt-8">
       <div className="mb-5 flex flex-col gap-1 border-b border-line pb-3 sm:flex-row sm:items-baseline sm:justify-between">
-        <h1 className="font-display text-2xl">Opportunities</h1>
+        <h1 className="font-display text-2xl text-ink">Opportunities</h1>
         <span className="text-[13px] text-ink-soft">Tell us what you need</span>
       </div>
-      <p className="mb-6 max-w-[60ch] text-sm leading-relaxed text-ink-soft">
-        A couple of quick questions, then your details — we&rsquo;ll follow
-        up directly. This space also carries opportunities we&rsquo;re
-        sharing directly, like open roles.
+      <p className="mb-8 max-w-[60ch] text-sm leading-relaxed text-ink-soft">
+        A few quick questions, then your details — we&rsquo;ll follow up
+        directly.
       </p>
 
-      <div className="grid gap-7 md:grid-cols-[1fr_1fr]">
-        <div>
-          <form onSubmit={handleSubmit} className="flex flex-col gap-1">
-            <label className={labelClass}>Who are you?</label>
-            <select
-              className={inputClass}
-              value={audience}
-              onChange={(e) => setAudience(e.target.value)}
-              required
-            >
-              <option value="">Select one</option>
-              {AUDIENCES.map((a) => (
-                <option key={a} value={a}>{a}</option>
-              ))}
-            </select>
-
-            <label className={labelClass}>What do you need?</label>
-            <select
-              className={inputClass}
-              value={need}
-              onChange={(e) => setNeed(e.target.value)}
-              required
-            >
-              <option value="">Select one</option>
-              {NEEDS.map((n) => (
-                <option key={n} value={n}>{n}</option>
-              ))}
-            </select>
-
-            <label className={labelClass}>What do you have, and what do you need?</label>
-            <textarea
-              className={inputClass + " min-h-[90px]"}
-              value={haveNeed}
-              onChange={(e) => setHaveNeed(e.target.value)}
-              placeholder="e.g. We have an early product and a small team — we need a go-to-market plan and warm partner intros."
-              required
-            />
-
-            <label className={labelClass}>Previous experience</label>
-            <textarea
-              className={inputClass + " min-h-[80px]"}
-              value={experience}
-              onChange={(e) => setExperience(e.target.value)}
-              placeholder="Anything relevant you've already tried or built"
-            />
-
-            <label className={labelClass}>Name</label>
-            <input className={inputClass} value={name} onChange={(e) => setName(e.target.value)} required />
-
-            <label className={labelClass}>Email</label>
-            <input type="email" className={inputClass} value={email} onChange={(e) => setEmail(e.target.value)} required />
-
-            <label className={labelClass}>Phone number</label>
-            <input type="tel" className={inputClass} value={phone} onChange={(e) => setPhone(e.target.value)} />
-
-            <label className={labelClass}>Age</label>
-            <input type="number" className={inputClass} value={age} onChange={(e) => setAge(e.target.value)} />
-
-            <label className={labelClass}>Website</label>
-            <input type="text" className={inputClass} value={website} onChange={(e) => setWebsite(e.target.value)} placeholder="Optional" />
-
-            <button
-              type="submit"
-              className="mt-4 rounded bg-pine-deep px-5 py-3 text-sm font-semibold text-[#F4F2EA]"
-            >
-              Submit
-            </button>
-          </form>
-          {submitted && (
-            <div className="mt-3 rounded border border-line bg-bg p-3.5 text-[13px]">
-              Thanks — your opportunity has been added, and we&rsquo;ll
-              follow up by email or phone.
+      <div className="grid gap-10 md:grid-cols-[1fr_0.9fr]">
+        {/* Wizard */}
+        <div className="glow-card rounded-md border border-line bg-surface p-6 backdrop-blur-md">
+          {submitted ? (
+            <div className="flex flex-col items-center py-10 text-center">
+              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-pine-deep text-xl text-white">
+                ✓
+              </div>
+              <h2 className="font-display text-xl text-ink">Thank you.</h2>
+              <p className="mt-2 max-w-[40ch] text-sm text-ink-soft">
+                We&rsquo;ve got what you shared — we&rsquo;ll follow up by
+                email or phone.
+              </p>
             </div>
+          ) : (
+            <>
+              <div className="mb-6 flex gap-1.5">
+                {Array.from({ length: TOTAL_STEPS }).map((_, i) => (
+                  <div
+                    key={i}
+                    className={
+                      "h-1 flex-1 rounded-full " +
+                      (i <= step ? "bg-pine" : "bg-line")
+                    }
+                  />
+                ))}
+              </div>
+
+              {step === 0 && (
+                <div>
+                  <label className={labelClass}>Who are you?</label>
+                  <div className="flex flex-col gap-2">
+                    {AUDIENCES.map((a) => (
+                      <button
+                        key={a}
+                        onClick={() => update({ audience: a })}
+                        className={
+                          "rounded border px-3.5 py-2.5 text-left text-sm transition-colors " +
+                          (form.audience === a
+                            ? "border-pine bg-pine/10 text-ink"
+                            : "border-line text-ink-soft hover:text-ink")
+                        }
+                      >
+                        {a}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {step === 1 && (
+                <div>
+                  <label className={labelClass}>What do you need?</label>
+                  <div className="flex flex-col gap-2">
+                    {NEEDS.map((n) => (
+                      <button
+                        key={n}
+                        onClick={() => update({ need: n })}
+                        className={
+                          "rounded border px-3.5 py-2.5 text-left text-sm transition-colors " +
+                          (form.need === n
+                            ? "border-pine bg-pine/10 text-ink"
+                            : "border-line text-ink-soft hover:text-ink")
+                        }
+                      >
+                        {n}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {step === 2 && (
+                <div>
+                  <label className={labelClass}>
+                    What do you have, and what do you need?
+                  </label>
+                  <textarea
+                    className={inputClass + " min-h-[130px]"}
+                    value={form.haveNeed}
+                    onChange={(e) => update({ haveNeed: e.target.value })}
+                    placeholder="e.g. We have an early product and a small team — we need a go-to-market plan and warm partner intros."
+                  />
+                </div>
+              )}
+
+              {step === 3 && (
+                <div>
+                  <label className={labelClass}>Previous experience</label>
+                  <textarea
+                    className={inputClass + " min-h-[110px]"}
+                    value={form.experience}
+                    onChange={(e) => update({ experience: e.target.value })}
+                    placeholder="Anything relevant you've already tried or built (optional)"
+                  />
+                </div>
+              )}
+
+              {step === 4 && (
+                <div className="flex flex-col gap-3">
+                  <label className={labelClass + " mb-0"}>Your details</label>
+                  <input
+                    className={inputClass}
+                    placeholder="Name"
+                    value={form.name}
+                    onChange={(e) => update({ name: e.target.value })}
+                  />
+                  <input
+                    type="email"
+                    className={inputClass}
+                    placeholder="Email"
+                    value={form.email}
+                    onChange={(e) => update({ email: e.target.value })}
+                  />
+                  <input
+                    type="tel"
+                    className={inputClass}
+                    placeholder="Phone number"
+                    value={form.phone}
+                    onChange={(e) => update({ phone: e.target.value })}
+                  />
+                  <input
+                    type="number"
+                    className={inputClass}
+                    placeholder="Age"
+                    value={form.age}
+                    onChange={(e) => update({ age: e.target.value })}
+                  />
+                  <input
+                    className={inputClass}
+                    placeholder="Website (optional)"
+                    value={form.website}
+                    onChange={(e) => update({ website: e.target.value })}
+                  />
+                </div>
+              )}
+
+              <div className="mt-8 flex justify-between">
+                <button
+                  onClick={() => setStep((s) => Math.max(0, s - 1))}
+                  className={
+                    "text-sm text-ink-soft " + (step === 0 ? "invisible" : "")
+                  }
+                >
+                  ← Back
+                </button>
+                {step < TOTAL_STEPS - 1 ? (
+                  <button
+                    onClick={() => setStep((s) => s + 1)}
+                    disabled={!canAdvance()}
+                    className="rounded bg-pine-deep px-5 py-2.5 text-sm font-semibold text-[#F4F2EA] disabled:opacity-40"
+                  >
+                    Next
+                  </button>
+                ) : (
+                  <button
+                    onClick={handleSubmit}
+                    disabled={!form.name || !form.email}
+                    className="rounded bg-pine-deep px-5 py-2.5 text-sm font-semibold text-[#F4F2EA] disabled:opacity-40"
+                  >
+                    Submit
+                  </button>
+                )}
+              </div>
+            </>
           )}
         </div>
 
-        <div className="flex flex-col gap-3">
-          {list.map((o, i) => (
-            <div key={i} className="rounded-md border border-line bg-surface p-4">
-              <div className="mb-1 flex items-center justify-between gap-2">
-                <span className="text-sm font-bold">{o.name}</span>
-                <span className="rounded-full border border-line px-2 py-0.5 text-[10px] font-semibold uppercase text-ink-soft">
-                  {o.audience}
-                </span>
+        {/* Admin-curated announcements — not populated by the form above */}
+        <div>
+          <h2 className="mb-3 font-display text-lg text-ink">Opportunities we&rsquo;re sharing</h2>
+          <div className="flex flex-col gap-3">
+            {OPPORTUNITY_ANNOUNCEMENTS.map((a, i) => (
+              <div
+                key={i}
+                className="glow-card rounded-md border border-line bg-surface p-4 backdrop-blur-md"
+              >
+                <div className="mb-1 flex items-center justify-between gap-2">
+                  <span className="text-sm font-bold text-ink">{a.title}</span>
+                  <span className="rounded-full border border-line px-2 py-0.5 text-[10px] font-semibold uppercase text-pine">
+                    {a.tag}
+                  </span>
+                </div>
+                <div className="mb-1.5 text-[11px] text-ink-soft">{a.when}</div>
+                <div className="text-[13px] leading-relaxed text-ink-soft">
+                  {a.body}
+                </div>
               </div>
-              <div className="mb-1.5 text-[11px] text-ink-soft">{o.when}</div>
-              <div className="text-[13px] leading-relaxed text-ink-soft">
-                {o.need}
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </main>
+  );
+}
+
+export default function Opportunities() {
+  return (
+    <Suspense fallback={null}>
+      <OpportunitiesContent />
+    </Suspense>
   );
 }

@@ -18,31 +18,39 @@ export const NAV: NavItem[] = [
 
 export const ANNOUNCEMENT = {
   enabled: true,
-  badge: "Announcement",
-  text: "New: \"The Opportunities Engine\" Playbook is live",
-  link: "/products",
+  badge: "Now Live",
+  text: "The Opportunities Engine Playbook — Download Chapter 1",
+  linkLabel: "Read Free →",
+  link: "/products#book",
 };
 
 export const HERO = {
-  eyebrow: "10+ YEARS IN TECH ARCHITECTURE, SALES & STRATEGIC BD",
-  headline: "We're shaping the way business is done.",
+  eyebrow: "10+ YEARS IN TECH ARCHITECTURE, ENTERPRISE SALES & STRATEGIC BD",
+  headline: "We build the technical systems and close the commercial deals that scale ventures.",
   subhead:
-    "Technical structure, business development consultation, media & marketing, and branding — equipping you with the tools and data to upgrade your business.",
+    "Bridging the gap between scalable software architecture and high-ticket enterprise revenue. We engineer platforms that scale, and build the commercial pipelines that fund them.",
   primaryCta: { label: "Explore what we do", href: "/#what-we-do" },
   secondaryCta: { label: "Who we help", href: "/#who-we-help" },
 };
 
-// The card shown in the hero that promotes the diagnostic — the actual
-// question flow now lives on the Opportunities page, not the homepage.
-export const DIAGNOSTIC_PROMO = {
-  title: "Not sure where to start?",
-  blurb:
-    "Tell us who you are and what you need — a couple of quick questions, then we follow up directly.",
-  ctaLabel: "Start the diagnostic",
+export const TRUST_METRICS = [
+  { value: "10+ Years", label: "Enterprise Architecture" },
+  { value: "End-to-End", label: "Commercial Sales Execution" },
+  { value: "Bespoke", label: "Venture Growth & Restructuring" },
+];
+
+// The hero's assessment card — segments are decorative selectors that
+// preselect an answer on the real, full diagnostic (which lives on the
+// Opportunities page as a slide-by-slide flow).
+export const VENTURE_ASSESSMENT = {
+  title: "Venture Assessment",
+  blurb: "60 seconds to the right starting point.",
+  segments: ["Startup", "Restructure", "Growth"],
+  ctaLabel: "Run 60-Second Diagnostic",
   href: "/opportunities",
 };
 
-// Used on the Opportunities page's intake form.
+// Used on the Opportunities page's slide-by-slide intake form.
 export const AUDIENCES = [
   "Startup",
   "Business owner restructuring",
@@ -59,11 +67,36 @@ export const NEEDS = [
 ];
 
 export const WHO_WE_HELP = [
-  { title: "Startups", blurb: "Early-stage teams building the structure to move fast without breaking things." },
-  { title: "Business owners restructuring", blurb: "Owners reworking a business model, offer, or operating structure." },
-  { title: "Students", blurb: "Building real-world knowledge in business, tech, or strategy." },
-  { title: "Owners", blurb: "We help owners achieve their strategies more efficiently, with exposure to a wide variety of opportunities." },
-  { title: "Employees", blurb: "We help employees equip with the right tools to expand their pipeline and strategies to achieve results at work." },
+  {
+    title: "Startups",
+    blurb: "Early-stage teams building the structure to move fast without breaking things.",
+    bottleneck: "Bottleneck: no technical or commercial foundation yet",
+    href: "/opportunities",
+  },
+  {
+    title: "Business owners restructuring",
+    blurb: "Owners reworking a business model, offer, or operating structure.",
+    bottleneck: "Bottleneck: the current model has stopped scaling",
+    href: "/opportunities",
+  },
+  {
+    title: "Students",
+    blurb: "Building real-world knowledge in business, tech, or strategy.",
+    bottleneck: "Bottleneck: theory without applied practice",
+    href: "/opportunities",
+  },
+  {
+    title: "Owners",
+    blurb: "We help owners achieve their strategies more efficiently, with exposure to a wide variety of opportunities.",
+    bottleneck: "Bottleneck: limited pipeline of the right opportunities",
+    href: "/opportunities",
+  },
+  {
+    title: "Employees",
+    blurb: "We help employees equip with the right tools to expand their pipeline and strategies to achieve results at work.",
+    bottleneck: "Bottleneck: results depend on tools they don't have yet",
+    href: "/opportunities",
+  },
 ];
 
 export type ProgramItem = {
@@ -92,8 +125,8 @@ export const PILLARS = [
   },
 ];
 
-// One slot per pillar for now — add more entries to PROGRAMS (same pillar
-// key) once each service area is ready to offer multiple formats.
+// One slot per pillar for now — add more entries (same pillar key) once
+// each service area is ready to offer multiple formats.
 export const PROGRAMS: ProgramItem[] = [
   {
     pillar: "technical",
@@ -131,23 +164,34 @@ export const PRODUCTS: Product[] = [
   },
 ];
 
-// Not currently linked from navigation — kept for a future dedicated page
-// or a Products feature.
 export const BOOK = {
   id: "book",
+  eyebrow: "The Book",
+  headline: "The Playbook Behind the Engine.",
   title: "The Opportunities Engine",
-  subtitle:
-    "The playbook translating 10+ years of tech and commercial deal-making into step-by-step frameworks.",
   description:
-    "Not theory — a working system for finding, evaluating, and acting on the opportunities already in front of a business, built from real deals across tech, sales, and strategic BD.",
+    "The direct translation of 10+ years of real-world deal-making and system architecture into repeatable execution frameworks — not theory, a working system for finding, evaluating, and acting on the opportunities already in front of a business.",
   highlights: [
     "Real case teardowns",
     "Tactical execution blueprints",
     "Direct entry points to advisory sprints",
   ],
-  ctaPrimary: { label: "Download Free Preview", href: "/products" },
-  ctaSecondary: { label: "Request Full Copy", href: "/opportunities" },
+  ctaPrimary: { label: "Download Free Chapter 1", href: "/opportunities" },
+  ctaSecondary: { label: "Explore Venture Sprints", href: "/programs" },
 };
+
+// Admin-curated announcements only — NOT populated by visitor form
+// submissions. Add/edit entries here directly to post something new.
+export type Announcement = { title: string; body: string; tag: string; when: string };
+
+export const OPPORTUNITY_ANNOUNCEMENTS: Announcement[] = [
+  {
+    tag: "Hiring",
+    title: "Remote — Sales Consultant",
+    body: "Competitive package. Apply by sending your CV to: example@example.com.",
+    when: "Posted by us",
+  },
+];
 
 export function fmt(n: number) {
   return "AED " + n.toLocaleString();

@@ -8,23 +8,25 @@ export default function Nav() {
   const pathname = usePathname();
 
   return (
-    <header className="sticky top-0 z-30 border-b border-line bg-bg">
+    <header className="sticky top-0 z-30 border-b border-line bg-bg/90 backdrop-blur-md">
       <div className="mx-auto flex max-w-[1080px] items-center justify-between px-5 py-4">
         <Link href="/" className="flex flex-col leading-none">
-          <span className="font-display text-[22px] font-semibold">{BRAND.name}</span>
-          <small className="mt-0.5 text-[10px] font-medium uppercase tracking-[0.12em] text-ink-soft">
+          <span className="font-display text-[22px] font-semibold tracking-tight">
+            {BRAND.name}
+          </span>
+          <small className="mt-1 text-[10px] font-medium uppercase tracking-[0.16em] text-ink-soft">
             {BRAND.subtitle}
           </small>
         </Link>
-        <nav className="hidden gap-5 text-sm text-ink-soft md:flex">
+        <nav className="hidden gap-6 text-sm text-ink-soft md:flex">
           {NAV.map((l) => (
             <Link
               key={l.href}
               href={l.href}
               className={
                 pathname === l.href
-                  ? "border-b-2 border-brass font-semibold text-ink"
-                  : "hover:text-ink"
+                  ? "relative text-ink after:absolute after:-bottom-[13px] after:left-0 after:h-[2px] after:w-full after:bg-pine"
+                  : "transition-colors hover:text-ink"
               }
             >
               {l.label}
@@ -40,7 +42,7 @@ export default function Nav() {
             className={
               "whitespace-nowrap rounded-full border px-3 py-1.5 text-[13px] " +
               (pathname === l.href
-                ? "border-brass font-semibold text-ink"
+                ? "border-pine text-ink"
                 : "border-line text-ink-soft")
             }
           >

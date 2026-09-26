@@ -13,8 +13,9 @@ export default function AnnouncementBar() {
       <span className="rounded-full bg-white/15 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide">
         {ANNOUNCEMENT.badge}
       </span>
-      <a href={ANNOUNCEMENT.link} className="underline underline-offset-2">
-        {ANNOUNCEMENT.text}
+      <span>{ANNOUNCEMENT.text}</span>
+      <a href={ANNOUNCEMENT.link} className="font-semibold underline underline-offset-2">
+        {ANNOUNCEMENT.linkLabel}
       </a>
       <button
         onClick={() => setDismissed(true)}

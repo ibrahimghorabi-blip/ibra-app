@@ -16,11 +16,13 @@ export default function CartDrawer() {
     setStep("cart");
   };
 
+  const inputClass = "w-full rounded border border-line bg-bg px-3 py-2 text-sm text-ink";
+
   return (
     <>
       <button
         onClick={() => setOpen(true)}
-        className="flex items-center gap-2 rounded-full border border-line bg-surface px-4 py-2 text-sm font-semibold"
+        className="flex items-center gap-2 rounded-full border border-line bg-surface px-4 py-2 text-sm font-semibold text-ink backdrop-blur-md"
       >
         Cart
         <span className="flex h-[18px] min-w-[18px] items-center justify-center rounded-full bg-pine px-1 text-[11px] text-white">
@@ -30,14 +32,14 @@ export default function CartDrawer() {
 
       {open && (
         <div className="fixed inset-0 z-50 flex justify-end">
-          <div className="absolute inset-0 bg-black/40" onClick={close} />
-          <aside className="relative flex h-full w-full max-w-[400px] flex-col bg-surface shadow-xl">
+          <div className="absolute inset-0 bg-black/60" onClick={close} />
+          <aside className="relative flex h-full w-full max-w-[400px] flex-col border-l border-line bg-surface backdrop-blur-md">
             {step === "confirm" ? (
               <div className="flex flex-1 flex-col items-center justify-center p-8 text-center">
                 <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-pine-deep text-xl text-white">
                   ✓
                 </div>
-                <h2 className="font-display text-xl">Thank you.</h2>
+                <h2 className="font-display text-xl text-ink">Thank you.</h2>
                 <p className="mt-2 text-sm text-ink-soft">
                   This is a demo checkout — wire this up to a real payment
                   gateway before launch.
@@ -55,8 +57,8 @@ export default function CartDrawer() {
             ) : step === "checkout" ? (
               <>
                 <div className="flex items-center justify-between border-b border-line p-4">
-                  <h2 className="font-display text-lg">Checkout</h2>
-                  <button onClick={close}>✕</button>
+                  <h2 className="font-display text-lg text-ink">Checkout</h2>
+                  <button onClick={close} className="text-ink">✕</button>
                 </div>
                 <div className="flex-1 overflow-y-auto p-5">
                   <button
@@ -69,7 +71,7 @@ export default function CartDrawer() {
                     Full name
                   </label>
                   <input
-                    className="mb-3 w-full rounded border border-line bg-bg px-3 py-2 text-sm"
+                    className={inputClass + " mb-3"}
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                   />
@@ -78,13 +80,13 @@ export default function CartDrawer() {
                   </label>
                   <input
                     type="email"
-                    className="w-full rounded border border-line bg-bg px-3 py-2 text-sm"
+                    className={inputClass}
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
                 <div className="border-t border-line p-5">
-                  <div className="mb-3 flex justify-between text-sm">
+                  <div className="mb-3 flex justify-between text-sm text-ink">
                     <span>Total</span>
                     <b>{fmt(subtotal)}</b>
                   </div>
@@ -100,8 +102,8 @@ export default function CartDrawer() {
             ) : (
               <>
                 <div className="flex items-center justify-between border-b border-line p-4">
-                  <h2 className="font-display text-lg">Your cart</h2>
-                  <button onClick={close}>✕</button>
+                  <h2 className="font-display text-lg text-ink">Your cart</h2>
+                  <button onClick={close} className="text-ink">✕</button>
                 </div>
                 <div className="flex-1 overflow-y-auto p-5">
                   {entries.length === 0 ? (
@@ -114,7 +116,7 @@ export default function CartDrawer() {
                         key={e.product.id}
                         className="border-b border-line py-3"
                       >
-                        <div className="text-sm font-semibold">
+                        <div className="text-sm font-semibold text-ink">
                           {e.product.name}
                         </div>
                         <div className="mb-2 text-xs text-ink-soft">
@@ -122,14 +124,14 @@ export default function CartDrawer() {
                         </div>
                         <div className="flex items-center gap-2">
                           <button
-                            className="h-6 w-6 rounded border border-line"
+                            className="h-6 w-6 rounded border border-line text-ink"
                             onClick={() => setQty(e.product.id, e.qty - 1)}
                           >
                             −
                           </button>
-                          <span>{e.qty}</span>
+                          <span className="text-ink">{e.qty}</span>
                           <button
-                            className="h-6 w-6 rounded border border-line"
+                            className="h-6 w-6 rounded border border-line text-ink"
                             onClick={() => setQty(e.product.id, e.qty + 1)}
                           >
                             +
@@ -146,7 +148,7 @@ export default function CartDrawer() {
                   )}
                 </div>
                 <div className="border-t border-line p-5">
-                  <div className="mb-3 flex justify-between text-sm">
+                  <div className="mb-3 flex justify-between text-sm text-ink">
                     <span>Subtotal</span>
                     <b>{fmt(subtotal)}</b>
                   </div>

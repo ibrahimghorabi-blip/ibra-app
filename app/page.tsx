@@ -10,18 +10,18 @@ export default function About() {
   return (
     <main className="mx-auto max-w-[1080px] px-5 pb-24 pt-8">
       <div className="mb-5 border-b border-line pb-3">
-        <h1 className="font-display text-2xl">About</h1>
+        <h1 className="font-display text-2xl text-ink">About</h1>
       </div>
       <div className="grid gap-6 md:grid-cols-[0.8fr_1.2fr]">
-        <div className="flex aspect-square items-center justify-center rounded-md bg-gradient-to-br from-pine to-pine-deep">
-          <span className="font-display text-5xl text-[#F4F2EA]">I</span>
+        <div className="glow-card flex aspect-square items-center justify-center rounded-md border border-line bg-surface backdrop-blur-md">
+          <span className="font-display text-5xl text-ink">I</span>
         </div>
         <div>
           <p className="mb-3.5 text-[15px] leading-relaxed text-ink-soft">
-            <em>We&rsquo;re shaping the way business is done.</em> Ten years
-            spent inside deal rooms, sales floors, and market launches
-            across tech, sales, and strategic business development taught
-            us the same lesson from every angle: most businesses
+            <em className="text-ink">We&rsquo;re shaping the way business is done.</em>{" "}
+            Ten years spent inside deal rooms, sales floors, and market
+            launches across tech, sales, and strategic business development
+            taught us the same lesson from every angle: most businesses
             aren&rsquo;t short on ambition, they&rsquo;re short on
             structure.
           </p>
