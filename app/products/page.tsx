@@ -3,7 +3,6 @@
 import { PRODUCTS, fmt } from "@/lib/site-config";
 import { useCart } from "@/lib/cart-context";
 import CartDrawer from "@/components/CartDrawer";
-import BookShowcase from "@/components/BookShowcase";
 import { useState } from "react";
 
 export default function Products() {
@@ -18,8 +17,6 @@ export default function Products() {
 
   return (
     <main className="mx-auto max-w-[1080px] px-5 pb-24 pt-8">
-      <BookShowcase />
-
       <div className="mb-5 flex flex-wrap items-baseline justify-between gap-3 border-b border-line pb-3">
         <h1 className="font-display text-2xl text-ink">Products</h1>
         <CartDrawer />
