@@ -22,16 +22,16 @@ export const ANNOUNCEMENT = {
   enabled: true,
   badge: "Announcement",
   text: "New: \"The Opportunities Engine\" Playbook is live",
-  link: "/#book",
+  link: "/products",
 };
 
 export const HERO = {
   eyebrow: "10+ YEARS IN TECH ARCHITECTURE, SALES & STRATEGIC BD",
   headline: "We're shaping the way business is done.",
   subhead:
-    "Technical structure, business development consultation, media & marketing, and branding — engineered to help you build, restructure, or scale.",
+    "Technical structure, business development consultation, media & marketing, and branding — equipping you with the tools and data to upgrade your business.",
   primaryCta: { label: "Explore what we do", href: "/programs" },
-  secondaryCta: { label: "Get the Ebook", href: "/products" },
+  secondaryCta: { label: "Who we help", href: "/#who-we-help" },
 };
 
 export const DIAGNOSTIC = {
@@ -49,7 +49,6 @@ export const DIAGNOSTIC = {
     "Media, marketing & branding",
     "Not sure yet",
   ],
-  // Maps a bottleneck answer to a recommendation + where to send them.
   recommendations: {
     "Technical structure": {
       text: "Start with a Technical Structure consultation — a focused session to assess the foundation before committing to a build.",
@@ -70,6 +69,8 @@ export const DIAGNOSTIC = {
   } as Record<string, { text: string; href: string }>,
 };
 
+// Not currently rendered on the homepage — kept here for a future
+// dedicated book page or Products page feature.
 export const BOOK = {
   id: "book",
   title: "The Opportunities Engine",
@@ -198,14 +199,15 @@ export const PROGRAMS: ProgramItem[] = [
 
 export type Product = { id: string; name: string; cat: string; desc: string; price: number };
 
+// Trimmed to a single item for now — add more back here as the catalog grows.
 export const PRODUCTS: Product[] = [
-  { id: "e1", name: "The Opportunities Engine (Ebook)", cat: "Ebook", desc: "A practical guide to finding, creating, and acting on the opportunities in front of your business.", price: 149 },
-  { id: "pr1", name: "Business Plan Canvas Kit", cat: "Productivity", desc: "A structured template set for building and pressure-testing a business plan.", price: 79 },
-  { id: "pr2", name: "Market-Entry Checklist Bundle", cat: "Productivity", desc: "Printable checklists covering licensing, banking, and hiring for new markets.", price: 59 },
-  { id: "pr3", name: "Pitch Deck Template", cat: "Productivity", desc: "An editable deck structure used for SME and partnership pitches.", price: 89 },
-  { id: "pr4", name: "Daily Focus Journal", cat: "Wellness", desc: "A structured daily planner for balancing focus and energy while building a business.", price: 69 },
-  { id: "pr5", name: "Founder Wellness Reset Guide", cat: "Wellness", desc: "Short routines for sustainable energy while under pressure.", price: 49 },
-  { id: "pr6", name: "Deep Work Timer Kit", cat: "Wellness", desc: "A printable timer and ritual kit for protecting deep-work blocks.", price: 59 },
+  {
+    id: "wk1",
+    name: "Wellness Kit",
+    cat: "Wellness",
+    desc: "A structured kit for staying focused and steady while building or restructuring a business.",
+    price: 99,
+  },
 ];
 
 export function fmt(n: number) {

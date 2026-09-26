@@ -1,61 +1,81 @@
-"use client";
+import Link from "next/link";
+import { HERO, PILLARS, WHO_WE_HELP } from "@/lib/site-config";
+import QuickDiagnostic from "@/components/QuickDiagnostic";
 
-import { PRODUCTS, fmt } from "@/lib/site-config";
-import { useCart } from "@/lib/cart-context";
-import CartDrawer from "@/components/CartDrawer";
-import { useState } from "react";
-
-export default function Products() {
-  const { addToCart } = useCart();
-  const [justAdded, setJustAdded] = useState<string | null>(null);
-
-  const handleAdd = (id: string) => {
-    addToCart(id);
-    setJustAdded(id);
-    setTimeout(() => setJustAdded(null), 900);
-  };
-
+export default function Home() {
   return (
-    <main className="mx-auto max-w-[1080px] px-5 pb-24 pt-8">
-      <div className="mb-5 flex flex-wrap items-baseline justify-between gap-3 border-b border-line pb-3">
-        <h1 className="font-display text-2xl">Products</h1>
-        <CartDrawer />
-      </div>
-      <p className="mb-6 max-w-[60ch] text-sm leading-relaxed text-ink-soft">
-        The Ebook, plus wellness and productivity tools to support the goals
-        in between sessions.
-      </p>
-      <div className="grid gap-5 sm:grid-cols-2 md:grid-cols-3">
-        {PRODUCTS.map((p) => (
-          <div
-            key={p.id}
-            className="flex flex-col rounded-md border border-line bg-surface"
-          >
-            <div className="aspect-square bg-bg" />
-            <div className="flex flex-1 flex-col gap-1.5 p-4">
-              <div className="text-[11px] text-ink-soft">{p.cat}</div>
-              <h3 className="text-base">{p.name}</h3>
-              <p className="text-[13px] leading-relaxed text-ink-soft">
-                {p.desc}
-              </p>
-              <div className="mt-auto flex items-center justify-between pt-2">
-                <b className="text-[15px]">{fmt(p.price)}</b>
-                <button
-                  onClick={() => handleAdd(p.id)}
-                  className={
-                    "rounded border px-3 py-1.5 text-[13px] font-semibold " +
-                    (justAdded === p.id
-                      ? "border-pine-deep bg-pine-deep text-white"
-                      : "border-ink")
-                  }
-                >
-                  {justAdded === p.id ? "Added" : "Add"}
-                </button>
-              </div>
-            </div>
+    <>
+      <section className="mx-auto grid max-w-[1080px] gap-7 px-5 py-14 md:grid-cols-[1.1fr_0.9fr] md:items-center md:pt-16">
+        <div>
+          <span className="mb-4 inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.1em] text-pine-deep">
+            <span className="h-1.5 w-1.5 rounded-full bg-pine-deep" />
+            {HERO.eyebrow}
+          </span>
+          <h1 className="font-display text-[clamp(32px,5.6vw,50px)] leading-[1.08]">
+            {HERO.headline}
+          </h1>
+          <p className="mt-4 max-w-[46ch] text-base leading-relaxed text-ink-soft">
+            {HERO.subhead}
+          </p>
+          <div className="mt-6 flex flex-wrap gap-3">
+            <Link
+              href={HERO.primaryCta.href}
+              className="rounded bg-pine-deep px-5 py-3 text-sm font-semibold text-[#F4F2EA]"
+            >
+              {HERO.primaryCta.label}
+            </Link>
+            <Link
+              href={HERO.secondaryCta.href}
+              className="rounded border border-ink px-5 py-3 text-sm font-semibold"
+            >
+              {HERO.secondaryCta.label}
+            </Link>
           </div>
-        ))}
-      </div>
-    </main>
+        </div>
+        <QuickDiagnostic />
+      </section>
+
+      <main className="mx-auto max-w-[1080px] px-5 pb-24">
+        <div className="mb-5 mt-10 flex items-baseline justify-between border-b border-line pb-3">
+          <h2 className="font-display text-2xl">What we do</h2>
+          <Link href="/programs" className="text-sm text-ink-soft">
+            Programs, page →
+          </Link>
+        </div>
+        <div className="grid gap-4 sm:grid-cols-3">
+          {PILLARS.map((p) => (
+            <div key={p.key} className="rounded-md border border-line bg-surface p-5">
+              <h3 className="font-display text-lg">{p.title}</h3>
+              <p className="mt-2 text-[13px] leading-relaxed text-ink-soft">
+                {p.blurb}
+              </p>
+              <Link
+                href="/programs"
+                className="mt-3 inline-block rounded border border-ink px-3 py-1.5 text-[13px] font-semibold"
+              >
+                Learn more
+              </Link>
+            </div>
+          ))}
+        </div>
+
+        <div
+          id="who-we-help"
+          className="mb-5 mt-14 flex items-baseline justify-between border-b border-line pb-3"
+        >
+          <h2 className="font-display text-2xl">Who we help</h2>
+        </div>
+        <div className="grid gap-4 sm:grid-cols-2">
+          {WHO_WE_HELP.map((w) => (
+            <div key={w.title} className="rounded-md border border-line bg-surface p-5">
+              <h3 className="font-display text-lg">{w.title}</h3>
+              <p className="mt-2 text-[13px] leading-relaxed text-ink-soft">
+                {w.blurb}
+              </p>
+            </div>
+          ))}
+        </div>
+      </main>
+    </>
   );
 }
